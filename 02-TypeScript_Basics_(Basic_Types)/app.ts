@@ -1,14 +1,30 @@
-const person: {
-    name: string,
-    age: number,
-    hobbies: string[],
-    role: [number, string]
-} = {
-    name: 'darshan',
-    age: 21,
-    hobbies: ['Sports', 'Swimming', 'Drawing'],
-    role: [1, 'author']
+// const person: {
+//     name: string,
+//     age: number,
+//     hobbies: string[],
+//     role: [number, string]
+// } = {
+//     name: 'darshan',
+//     age: 21,
+//     hobbies: ['Sports', 'Swimming', 'Drawing'],
+//     role: [1, 'author']
+// }
+
+enum Role {
+    ADMIN,
+    AUTHOR,
+    READ_ONLY,
+
 }
+
+
+const person =
+    {
+        name: 'darshan',
+        age: 21,
+        hobbies: ['Sports', 'Swimming', 'Drawing'],
+        role: Role.ADMIN
+    }
 
 console.log(person.name)
 
@@ -25,4 +41,8 @@ favouriteActivity = ['Sports']
 
 for (const hobby of person.hobbies) {
     console.log(hobby)
+}
+
+if (person.role === Role.ADMIN) {
+    console.log('is Admin')
 }
