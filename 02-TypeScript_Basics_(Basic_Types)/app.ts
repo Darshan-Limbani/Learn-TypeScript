@@ -1,32 +1,11 @@
-function add(n1: number, n2: number) {
-    return n1 + n2;
-}
+let userInput: unknown;
+let userName: string;
 
-function printResult(num: number) {
-    console.log('Result : ' + num)
-}
+userInput = 5;
+userName = "darshan"
 
+console.log(userName)
 
-function addAndHandle(n1: number, n2: number, cb: (num: number) => void) {
-
-    const result = n1 + n2;
-    cb(result)
-
-}
-
-addAndHandle(10, 15, (result) => {
-    console.log("Callback Fn Result : ", result)
-})
-
-
-printResult(add(10, 15))
-
-// let combinedValues: Function;
-let combinedValues: (a: number, b: number) => number;
-
-combinedValues = add
-printResult(combinedValues(5, 5))
-
-// combinedValues = printResult // Not Valid
-
-printResult(combinedValues(5, 5))
+// userName = userInput; // Not Allowed
+if (typeof userInput === 'string')
+    userName = userInput;
