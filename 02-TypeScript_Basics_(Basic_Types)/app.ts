@@ -1,48 +1,18 @@
-// const person: {
-//     name: string,
-//     age: number,
-//     hobbies: string[],
-//     role: [number, string]
-// } = {
-//     name: 'darshan',
-//     age: 21,
-//     hobbies: ['Sports', 'Swimming', 'Drawing'],
-//     role: [1, 'author']
-// }
+function add(input1: number | string, input2: number | string) {
+    let result;
 
-enum Role {
-    ADMIN,
-    AUTHOR,
-    READ_ONLY,
-
-}
-
-
-const person =
-    {
-        name: 'darshan',
-        age: 21,
-        hobbies: ['Sports', 'Swimming', 'Drawing'],
-        role: Role.ADMIN
+    if (typeof input1 === 'number' && typeof input2 === "number") {
+        result = input1 + input2;
+    } else {
+        result = input1.toString() + input2.toString();
     }
 
-console.log(person.name)
-
-let favouriteActivity: string[];
-
-
-// person.role = [2,'admin','author']  //Not Allowed
-
-// person.role.push(20)  // Allowed
-// person.role.push("Admin") // Allowed
-console.log(person.role)
-favouriteActivity = ['Sports']
-
-
-for (const hobby of person.hobbies) {
-    console.log(hobby)
+    return result
 }
 
-if (person.role === Role.ADMIN) {
-    console.log('is Admin')
-}
+
+const ages = add(20, 21)
+console.log(ages)
+
+const names = add('Udit', 'deep')
+console.log(names)
