@@ -1,15 +1,24 @@
-class Department {
+abstract class Department {
+    static fiscalYear = 2020;
+
     // name: string;
     // private  id: string;
     protected employee: string[] = []
 
-    constructor(private readonly id: string, public name: string) {
+    constructor(protected readonly id: string, public name: string) {
         // this.name = n
     }
 
-    describe(this: Department) {
-        console.log(`Department (${this.id}) : ${this.name}`)
+
+    static createEmployee(name: string) {
+        return {name: name}
     }
+
+    abstract describe(this: Department): void;
+
+    // {
+    //     console.log(`Department (${this.id}) : ${this.name}`)
+    // }
 
     addEmployee(employee: string) {
         // this.id = "d2" // Not Allowed as Read Only
@@ -30,6 +39,10 @@ class ITDepartment extends Department {
         super(id, 'IT');
         this.admins = admins
     }
+
+    describe() {
+        console.log(`Department (${this.id}) : ${this.name}`)
+    }
 }
 
 class AccountingDepartment extends Department {
@@ -39,6 +52,10 @@ class AccountingDepartment extends Department {
     constructor(id: string, private reports: string[]) {
         super('id', 'Accounting')
         this.lastReport = reports[0]
+    }
+
+    describe() {
+        console.log(`Department (${this.id}) : ${this.name}`)
     }
 
     get mostRecentReport() {
@@ -69,6 +86,11 @@ class AccountingDepartment extends Department {
     }
 
 }
+
+const employe1 = Department.createEmployee("Hardik")
+console.log(employe1)
+console.log(Department.fiscalYear)
+
 
 
 const it = new ITDepartment('d1', ['Max'])
