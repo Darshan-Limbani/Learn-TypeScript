@@ -18,7 +18,7 @@ age = 29;
 
 // console.log(result);
 
-const add = (a: number, b: number=5) => a + b;
+const add = (a: number, b: number = 5) => a + b;
 
 const printOutput: (a: number | string) => void = output => console.log(output);
 
@@ -29,3 +29,18 @@ if (button) {
 }
 
 printOutput(add(5));
+
+const hobbies = ['Sports', 'Swimming'];
+
+const newHobby = ['Singing']
+
+newHobby.push(...hobbies)
+
+const person = {
+    name: 'john',
+    age: 25
+}
+
+const extraPerson = {
+    ...person
+}
