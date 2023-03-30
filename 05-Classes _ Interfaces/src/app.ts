@@ -1,8 +1,9 @@
 class Department {
     // name: string;
+    // private  id: string;
     private employee: string[] = []
 
-    constructor(private id: string, public name: string) {
+    constructor(private readonly id: string, public name: string) {
         // this.name = n
     }
 
@@ -11,6 +12,7 @@ class Department {
     }
 
     addEmployee(employee: string) {
+        // this.id = "d2" // Not Allowed as Read Only
         this.employee.push(employee)
     }
 
