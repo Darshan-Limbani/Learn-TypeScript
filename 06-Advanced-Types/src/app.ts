@@ -21,12 +21,19 @@ type Combinable = string | number;
 type Numeric = number | boolean;
 type Universal = Combinable & Numeric;
 
+function add(a: number, b: number): number;
+function add(a: string, b: string): string
+function add(a: string, b: number): string
+function add(a: number, b: string): string
 function add(a: Combinable, b: Combinable) {
     if (typeof a === 'string' || typeof b === 'string') {   //Condition is Called type Guard
         return a.toString() + b.toString;
     }
     return a + b;
 }
+
+const result = add('a', 'b')
+result.split(' ')
 
 type UnknownEmployee = Employee | Admin;
 
@@ -110,11 +117,11 @@ const useInputElement = document.getElementById('user-input')! as HTMLInputEleme
 
 useInputElement.value = 'Hi there';
 
-interface ErrorContainer{
-    [prop:string]:string
+interface ErrorContainer {
+    [prop: string]: string
 }
 
-const errorBag : ErrorContainer={
-    email:'No a valid email!',
-    userName :  'Must start with a capital character!'
+const errorBag: ErrorContainer = {
+    email: 'No a valid email!',
+    userName: 'Must start with a capital character!'
 };
