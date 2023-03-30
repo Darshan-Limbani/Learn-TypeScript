@@ -44,3 +44,24 @@ const person = {
 const extraPerson = {
     ...person
 }
+
+// const addNum = (...nums: number[]) => { //Rest Parameter
+//     return nums.reduce((curResult, curValue) => {
+//         return curResult + curValue
+//     }, 0)
+// }
+//
+// const nums = [2, 2.3, 5, 6, 10]
+//
+// console.log(addNum(...nums))
+
+
+const addNum = (...nums: [number, number, number]) => { // Tuple
+    return nums.reduce((curResult, curValue) => {
+        return curResult + curValue
+    }, 0)
+}
+
+const nums = addNum(2, 2.3, 5)
+
+console.log(nums)
