@@ -1,8 +1,8 @@
 const userName = 'Max';
 // userName = 'Maximilian';
-let age = 30;
-
-age = 29;
+// let age = 30;
+//
+// age = 29;
 
 // function add(a: number, b: number) {
 //   let result;
@@ -65,3 +65,11 @@ const addNum = (...nums: [number, number, number]) => { // Tuple
 const nums = addNum(2, 2.3, 5)
 
 console.log(nums)
+
+
+const [hobby1,hobby2] = hobbies
+console.log(hobby1,hobby2)
+
+const {name:firstName,age} = person
+
+console.log(firstName,age)
