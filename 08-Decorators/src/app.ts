@@ -1,4 +1,3 @@
-
 function Logger(logString: string) {
     console.log('LOGGER FACTORY')
     return function (constructor: Function) {
@@ -11,14 +10,22 @@ function Logger(logString: string) {
 function withTemplate(template: string, hookId: string) {
     console.log('TEMPLATE FACTORY')
 
-    return function (constructor: any) {
-        console.log('Rendering Template.....')
+    return function <T extends { new(...args: any[]): { name: string } }>
+    (originalConstructor: T) {
+        return class extends originalConstructor {
+            constructor(..._: any) {
+                super();
+                console.log('Rendering Template.....')
 
-        const hookEl = document.getElementById(hookId);
-        const p = new constructor();
-        if (hookEl) {
-            hookEl.innerHTML = template;
-            hookEl.querySelector('h1')!.textContent = p.name
+                const hookEl = document.getElementById(hookId);
+                const p = new originalConstructor();
+                if (hookEl) {
+                    hookEl.innerHTML = template;
+                    hookEl.querySelector('h1')!.textContent = this.name
+                }
+            }
+
+
         }
     }
 }
@@ -60,8 +67,19 @@ function Log3(target: any, name: string, descriptor: PropertyDecorator) {
 
 }
 
+function Log4(target: any, name: string, position: number) {
+
+    console.log('------------------------------------')
+    console.log('Parameter decorator!')
+    console.log(target)
+    console.log(name)
+    console.log(position)
+    console.log('------------------------------------')
+
+}
+
 class Product {
-    // @Log
+    @Log
     title: string;
     _price: number;
 
@@ -79,7 +97,7 @@ class Product {
     }
 
     @Log3
-    getPriceWithText(tax: number) {
+    getPriceWithText(@Log4 tax: number) {
         return this._price * (1 + tax)
     }
 }
