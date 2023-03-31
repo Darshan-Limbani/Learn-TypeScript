@@ -49,7 +49,7 @@ console.log(extractAndConvert({name: 'Max'}, 'name'))
 
 //Generic Classes
 
-class DataStorage<T extends string|number|boolean> {
+class DataStorage<T extends string | number | boolean> {
     private data: T[] = [];
 
     addItem(item: T) {
@@ -76,7 +76,6 @@ textStorage.removeItem("Manu")
 console.log(textStorage.getItems())
 
 
-
 const numberStorage = new DataStorage<number>()
 numberStorage.addItem(10)
 numberStorage.addItem(20)
@@ -95,3 +94,25 @@ console.log(numberStorage.getItems())
 // console.log(objStorage.getItems())
 
 
+
+// ---------------------------------------------------------
+// Generic Utility Types
+interface CourseGoal {
+    title: string,
+    description: string,
+    date: Date
+}
+
+
+function createCourseGoal(title: string, description: string, date: Date): CourseGoal {
+    let courseGoal: Partial<CourseGoal> = {};
+    courseGoal.title = title;
+    courseGoal.description = description;
+    courseGoal.date = date;
+
+    return courseGoal as CourseGoal
+}
+
+const names:Readonly<string[]> =['Max','Anna'];
+// names.push(' Manu')
+// names.pop();
