@@ -6,12 +6,12 @@ function Logger(logString: string) {
     }
 }
 
-
 function withTemplate(template: string, hookId: string) {
     console.log('TEMPLATE FACTORY')
 
-    return function <T extends { new(...args: any[]): { name: string } }>
-    (originalConstructor: T) {
+    return function <T extends { new(...args: any[]): { name: string } }>(originalConstructor: T) {
+
+
         return class extends originalConstructor {
             constructor(..._: any) {
                 super();
@@ -24,8 +24,6 @@ function withTemplate(template: string, hookId: string) {
                     hookEl.querySelector('h1')!.textContent = this.name
                 }
             }
-
-
         }
     }
 }
@@ -34,6 +32,7 @@ function withTemplate(template: string, hookId: string) {
 @withTemplate('<h1> My Person Object</h1>', 'app')
 class Person {
     name = 'Max'
+
 
     constructor() {
         console.log('Creating person object...');
@@ -81,6 +80,7 @@ function Log4(target: any, name: string, position: number) {
 class Product {
     @Log
     title: string;
+
     _price: number;
 
     @Log2
@@ -102,7 +102,6 @@ class Product {
     }
 }
 
-
 function AutoBind(_: any, _2: string, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value;
     const adjDescriptor: PropertyDescriptor = {
@@ -115,7 +114,6 @@ function AutoBind(_: any, _2: string, descriptor: PropertyDescriptor) {
     }
     return adjDescriptor;
 }
-
 
 class Printer {
     message = 'This works!';
@@ -145,14 +143,14 @@ function Required(target: any, propName: string) {
 
     registeredValidators[target.constructor.name] = {
         ...registeredValidators[target.constructor.name],
-            [propName]: ['required']
+        [propName]: ['required']
     }
 }
 
 function PositiveNumber(target: any, propName: string) {
     registeredValidators[target.constructor.name] = {
         ...registeredValidators[target.constructor.name],
-            [propName]: ['positive']
+        [propName]: ['positive']
     }
 }
 
@@ -164,7 +162,9 @@ function validate(obj: any) {
     }
 
     let isValid = true;
+    console.log(objValidatorConfig)
     for (const prop in objValidatorConfig) {
+        console.log(prop)
         for (const validator of objValidatorConfig[prop]) {
             switch (validator) {
                 case 'required':
