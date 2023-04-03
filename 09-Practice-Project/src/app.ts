@@ -1,13 +1,16 @@
 // Drag & Drop Interfaces
-interface  Draggable{
-    dragStartHandler(event:DragEvent):void;
-    dragEndHandler(event:DragEvent):void
+interface Draggable {
+    dragStartHandler(event: DragEvent): void;
+
+    dragEndHandler(event: DragEvent): void
 }
 
-interface DragTarget{
-    dropOverHandler(event:DragEvent):void;
-    dropHandler(event:DragEvent):void;
-    dragLeaveHandler(event:DragEvent):void;
+interface DragTarget {
+    dragOverHandler(event: DragEvent): void;
+
+    dropHandler(event: DragEvent): void;
+
+    dragLeaveHandler(event: DragEvent): void;
 }
 
 
@@ -167,14 +170,14 @@ abstract class Component<T extends HTMLElement, U extends HTMLElement> {
 }
 
 // ProjectItem Class
-class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> implements Draggable{
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> implements Draggable {
 
     private project: Project;
 
-    get persons(){
-        if(this.project.people ===1){
+    get persons() {
+        if (this.project.people === 1) {
             return '1 person'
-        }else{
+        } else {
             return `${this.project.people} persons`
         }
     }
@@ -188,16 +191,23 @@ class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> implements 
 
     @autoBind
     dragStartHandler(event: DragEvent) {
+        console.log('dragStartHandler.....')
+        event.dataTransfer!.setData('text/plain', this.project.id)
+        event.dataTransfer!.effectAllowed = 'move'
     }
 
-    dragEndHandler(_  : DragEvent) {
+    dragEndHandler(_: DragEvent) {
+        console.log('dragEndHandler....')
     }
 
     configure() {
-  /*      this.element.querySelector('h2')!.textContent = this.project.title
-        this.element.querySelector('h3')!.textContent = this.project.people.toString()
-        this.element.querySelector('p')!.textContent = this.project.description
-*/    }
+        this.element.addEventListener('dragstart', this.dragStartHandler);
+        this.element.addEventListener('dragend', this.dragEndHandler);
+        /*      this.element.querySelector('h2')!.textContent = this.project.title
+              this.element.querySelector('h3')!.textContent = this.project.people.toString()
+              this.element.querySelector('p')!.textContent = this.project.description
+      */
+    }
 
 
     renderContent() {
@@ -209,7 +219,7 @@ class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> implements 
 
 
 // ProjectList Class
-class ProjectList extends Component<HTMLDivElement, HTMLElement> {
+class ProjectList extends Component<HTMLDivElement, HTMLElement> implements DragTarget {
     // templateElement: HTMLTemplateElement;
     // hostElement: HTMLDivElement;
     // element: HTMLElement;
@@ -222,6 +232,28 @@ class ProjectList extends Component<HTMLDivElement, HTMLElement> {
 
         this.configure()
         this.renderContent()
+    }
+
+    @autoBind
+    dragOverHandler(event: DragEvent) {
+        console.log('dragOverHandler.......')
+        if (event.dataTransfer && event.dataTransfer.types[0] === 'text/plain') {
+            event.preventDefault()
+            const listEl = this.element.querySelector('ul')!;
+            listEl.classList.add('droppable')
+        }
+    }
+
+    dropHandler(event: DragEvent) {
+        console.log('dropHandler......')
+        console.log(event.dataTransfer!.getData('text/plain'))
+    }
+
+    @autoBind
+    dragLeaveHandler(event: DragEvent) {
+        console.log('dragLeaveHandler......')
+        const listEl = this.element.querySelector('ul')!;
+        listEl.classList.remove('droppable')
     }
 
     private renderProjects() {
@@ -238,6 +270,10 @@ class ProjectList extends Component<HTMLDivElement, HTMLElement> {
     }
 
     configure() {
+        this.element.addEventListener("dragover", this.dragOverHandler)
+        this.element.addEventListener("dragleave", this.dragLeaveHandler)
+        this.element.addEventListener("drop", this.dropHandler)
+
         projectState.addListener((projects: Project[]) => {
 
             const releventProjects = projects.filter(prj => {
