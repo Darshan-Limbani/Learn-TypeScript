@@ -1,5 +1,3 @@
-namespace App {
-
     // Validation
     export interface Validatable {
         value: string | number;
@@ -25,6 +23,7 @@ namespace App {
         ) {
             isValid = isValid && validatableInput.value <= validatableInput.max;
         }
+
         if (validatableInput.maxLength != null
             && typeof validatableInput.value === 'string'
         ) {
@@ -38,4 +37,3 @@ namespace App {
 
         return isValid;
     }
-}
