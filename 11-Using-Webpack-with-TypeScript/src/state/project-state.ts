@@ -9,7 +9,6 @@ export class State<T> {
     addListener(listenerFn: Listener<T>) {
         this.listeners.push(listenerFn)
     }
-
 }
 
 class ProjectState extends State<Project> {
