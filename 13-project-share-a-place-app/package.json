@@ -5,14 +5,13 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server"
+    "start": "NODE_OPTIONS=--openssl-legacy-provider && webpack-dev-server"
   },
   "keywords": [
     "typescript",
     "course"
   ],
-  "author": "Maximilian Schwarzmüller",
-  "license": "ISC",
+   "license": "ISC",
   "devDependencies": {
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.2",
